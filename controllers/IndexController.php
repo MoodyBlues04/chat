@@ -6,10 +6,21 @@ use yii\web\Controller;
 
 class IndexController extends Controller {
 
-    public function actionMain() {
-        
+    /**
+     * Renders homwpage
+     * 
+     * @return string
+     */
+    public function actionIndex() {
+        return $this->render('index');
     }
-    public function actionLogIn() {
+
+    /**
+     * Log in new user
+     * 
+     * @return string
+     */
+    public function actionLogin() {
 
     }
 }
