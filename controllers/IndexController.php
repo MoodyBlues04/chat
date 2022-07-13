@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use yii\web\Controller;
+use app\models\Users;
+use app\models\Login;
 
 class IndexController extends Controller {
 
@@ -23,6 +25,12 @@ class IndexController extends Controller {
      * @return string
      */
     public function actionLogin() {
+        $this->layout = false;
 
+        $model = new Login();
+
+        return $this->render('login', [
+            'model' => $model
+        ]);
     }
 }
