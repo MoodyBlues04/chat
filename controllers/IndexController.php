@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
+use Yii;
 use yii\web\Controller;
 use app\models\Users;
-use app\models\Login;
 
 class IndexController extends Controller {
 
@@ -25,12 +25,13 @@ class IndexController extends Controller {
      * @return string
      */
     public function actionLogin() {
-        $this->layout = false;
+        $model = new Users();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
 
-        $model = new Login();
-
-        return $this->render('login', [
-            'model' => $model
-        ]);
+                return $this->render('index');
+            }
+        }
+        return $this->render('login', ['model' => $model]);
     }
 }

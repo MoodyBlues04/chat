@@ -12,24 +12,32 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 10%;
+    height: 110%;
 
     background-color: blue;
 }
 main {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 90%;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
 
     background-color: blueviolet;
 }
-footer {
-    width: 100%;
+.links {
+    width: 20%;
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    background-color: cadetblue;
+    background-color: rgb(66, 39, 129);
+}
+.content {
+    width: 80%;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+
+    background-color: rgb(39, 129, 87);
 }
