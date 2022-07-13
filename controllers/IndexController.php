@@ -6,6 +6,8 @@ use yii\web\Controller;
 
 class IndexController extends Controller {
 
+    public $layout = '@app/views/layouts/home.php';
+
     /**
      * Renders homwpage
      * 

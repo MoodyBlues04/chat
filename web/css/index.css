@@ -1,0 +1,35 @@
+body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    background-color: cornflowerblue;
+}
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 10%;
+
+    background-color: blue;
+}
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90%;
+
+    background-color: blueviolet;
+}
+footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: cadetblue;
+}
