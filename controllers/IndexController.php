@@ -29,11 +29,9 @@ class IndexController extends Controller {
 
         $model = new Users();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-
-                return $this->redirect('index/index');
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            return $this->redirect('index/index');
         }
 
         $this->layout = 'login';
