@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\modules\signup\SignupForm;
 use Yii;
 use yii\web\Controller;
 use app\models\Users;
@@ -36,5 +37,18 @@ class IndexController extends Controller {
 
         $this->layout = 'login';
         return $this->render('login', ['model' => $model]);
+    }
+
+    public function actionSignup() {
+        
+        $form = new SignupForm();
+
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            
+            return $this->redirect('index');
+        }
+
+        $this->layout = 'login';
+        return $this->render('signup', ['model' => $form]);
     }
 }

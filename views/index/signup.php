@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use app\assets\AppAsset;
 
-$this->title = 'Log In';
+$this->title = 'Sign Up';
 AppAsset::register($this);
 ?>
 
@@ -14,6 +14,7 @@ AppAsset::register($this);
 <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'name', ['enableLabel' => false])->textInput(['placeholder' => 'Name', 'class'=>'form-control text-center']) ?>
     <?= $form->field($model, 'password', ['enableLabel' => false])->passwordInput(['placeholder' => 'Password', 'class'=>'form-control text-center']) ?>
-    <?= Html::submitButton('Login', ['class' => 'login-button btn btn-primary']) ?>
+    <?= $form->field($model, 'email', ['enableLabel' => false])->passwordInput(['placeholder' => 'Email', 'class'=>'form-control text-center']) ?>
+    <?= Html::submitButton('Sign Up', ['class' => 'login-button btn btn-primary']) ?>
 <?php ActiveForm::end(); ?>
 </div>
