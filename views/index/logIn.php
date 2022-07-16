@@ -4,18 +4,16 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use app\assets\AppAsset;
 
-$this->title = 'Вход';
+$this->title = 'Log In';
 AppAsset::register($this);
 ?>
 
 <div class="login-form">
-<h1><?= Html::encode($this->title) ?></h1>
-
-<p>Пожалуйста, заполните следующие поля для входа на сайт:</p>
+<h1 style="margin-bottom: 20px"><?= Html::encode($this->title) ?></h1>
 
 <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'name')->textInput() ?>
-    <?= $form->field($model, 'password')->passwordInput() ?>
-    <?= Html::submitButton('Login', ['class' => 'btn btn-primary']) ?>
+    <?= $form->field($model, 'name', ['enableLabel' => false])->textInput(['placeholder' => 'Name', 'class'=>'form-control text-center']) ?>
+    <?= $form->field($model, 'password', ['enableLabel' => false])->passwordInput(['Password' => 'Name', 'class'=>'form-control text-center']) ?>
+    <?= Html::submitButton('Login', ['class' => 'login-button btn btn-primary']) ?>
 <?php ActiveForm::end(); ?>
 </div>

@@ -42,10 +42,14 @@ main {
     background-color: rgb(39, 129, 87);
 }
 .login-form {
-    width: 50%;
+    width: 30%;
     /* display: flex; */
     justify-content: center;
     margin-top: 10%;
 
     background-color: rgb(26, 5, 46);
+}
+
+.login-button {
+    width: 30%;
 }
