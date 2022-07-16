@@ -4,10 +4,10 @@ namespace app\models;
 
 use yii\base\Model;
 
-class SignupForm extends Model {
+class SignupForm extends Model
+{
     public $name;
     public $password;
-    public $email;
 
     public function rules() {
         return [
@@ -16,6 +16,10 @@ class SignupForm extends Model {
             [['name', 'password'], 'safe'],
             [['name'], 'unique'],
         ];
+    }
+
+    public function login() {
+
     }
 
 }

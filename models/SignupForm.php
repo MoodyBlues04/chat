@@ -2,22 +2,22 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use yii\base\Model;
 
-class Users extends ActiveRecord
+class SignupForm extends Model
 {
-    const STATUS_DELETED = -1;
-    const STATUS_WAIT = 0;
-    const STATUS_ACTIVE = 1;
-    
+    public $name;
+    public $password;
+    public $email;
+
     public function rules() {
         return [
             [['name', 'password'], 'required', 'message' => 'please fill in all fields'],
             [ ['password'], 'string', 'min' => 8],
             [['name', 'password'], 'safe'],
-            [['name', 'email'], 'unique'],
-            ['status', 'in', 'range' => [self::STATUS_DELETED, self::STATUS_WAIT, self::STATUS_ACTIVE]],
+            [['name'], 'unique'],
             [['email'], 'email'],
         ];
     }
+
 }
