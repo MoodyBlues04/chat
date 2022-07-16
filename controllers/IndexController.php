@@ -16,6 +16,7 @@ class IndexController extends Controller {
      * @return string
      */
     public function actionIndex() {
+
         return $this->render('index');
     }
 
@@ -25,13 +26,17 @@ class IndexController extends Controller {
      * @return string
      */
     public function actionLogin() {
+
         $model = new Users();
+
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
 
-                return $this->render('index');
+                return $this->redirect('index/index');
             }
         }
+
+        $this->layout = 'login';
         return $this->render('login', ['model' => $model]);
     }
 }

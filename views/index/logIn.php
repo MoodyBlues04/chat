@@ -8,6 +8,7 @@ $this->title = 'Вход';
 AppAsset::register($this);
 ?>
 
+<div class="login-form">
 <h1><?= Html::encode($this->title) ?></h1>
 
 <p>Пожалуйста, заполните следующие поля для входа на сайт:</p>
@@ -17,3 +18,4 @@ AppAsset::register($this);
     <?= $form->field($model, 'password')->passwordInput() ?>
     <?= Html::submitButton('Login', ['class' => 'btn btn-primary']) ?>
 <?php ActiveForm::end(); ?>
+</div>

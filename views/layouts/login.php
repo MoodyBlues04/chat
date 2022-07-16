@@ -21,25 +21,12 @@ AppAsset::register($this);
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
-        <link rel="stylesheet" href="https://unpkg.com/flexboxgrid2@7.2.1/flexboxgrid2.min.css">
         <?php $this->head() ?>
     </head>
     <body>
     <?php $this->beginBody() ?>
-        <header>
-            t
-        </header>
         <main>
-            <div class="links">
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-            </div>
-            <div class="content">
-                <?= $content ?>
-            </div>
+            <?= $content ?>
         </main>
     <?php $this->endBody() ?>
     </body>

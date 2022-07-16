@@ -10,7 +10,7 @@ class Users extends ActiveRecord {
         return [
             [['name', 'password'], 'required', 'message' => 'please fill in all fields'],
             [ ['password'], 'string', 'min' => 8],
-            ['name', 'password', 'safe'],
+            [['name', 'password'], 'safe'],
             [['name'], 'unique'],
         ];
     }
