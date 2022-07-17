@@ -5,7 +5,7 @@ body {
     align-items: center;
     height: 100%;
 
-    background-color: cornflowerblue;
+    /* background-color: cornflowerblue; */
 }
 header {
     width: 100%;
@@ -14,7 +14,7 @@ header {
     align-items: center;
     height: 110%;
 
-    background-color: blue;
+    /* background-color: blue; */
 }
 main {
     width: 100%;
@@ -23,7 +23,7 @@ main {
     justify-content: center;
     height: 100%;
 
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
 }
 .links {
     width: 20%;
@@ -31,7 +31,7 @@ main {
     flex-direction: column;
     align-items: center;
 
-    background-color: rgb(66, 39, 129);
+    /* background-color: rgb(66, 39, 129); */
 }
 .content {
     width: 80%;
@@ -39,7 +39,7 @@ main {
     flex-direction: column;
     align-items: center;
 
-    background-color: rgb(39, 129, 87);
+    /* background-color: rgb(39, 129, 87); */
 }
 .login-form {
     width: 30%;
@@ -47,7 +47,7 @@ main {
     justify-content: center;
     margin-top: 10%;
 
-    background-color: rgb(26, 5, 46);
+    /* background-color: rgb(26, 5, 46); */
 }
 
 .login-button {
