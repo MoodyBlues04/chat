@@ -4,9 +4,14 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\models\Users;
+use app\models\User;
 use app\models\SignupForm;
 use app\modules\signup\SignupService;
+use yii\filters\AccessControl;
+use yii\web\Response;
+use yii\filters\VerbFilter;
+use app\models\LoginForm;
+
 
 class IndexController extends Controller
 {
@@ -14,7 +19,49 @@ class IndexController extends Controller
     public $layout = '@app/views/layouts/home.php';
 
     /**
-     * Renders homwpage
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+        ];
+    }
+
+    /**
+     * Renders homepage
      * 
      * @return string
      */
@@ -24,23 +71,44 @@ class IndexController extends Controller
     }
 
     /**
-     * Log in new user
+     * Log in user
      * 
      * @return string
      */
     public function actionLogin()
     {
-        $model = new Users();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
-            return $this->redirect('index');
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
         }
 
-        $this->layout = 'login';
-        return $this->render('login', ['model' => $model]);
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->render('index');
+        }
+
+        $model->password = '';
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
+    /**
+     * Logout action.
+     *
+     * @return Response
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
+
+    /**
+     * Sign up new user
+     * 
+     * @return string
+     */
     public function actionSignup()
     {        
         $form = new SignupForm();
@@ -65,6 +133,11 @@ class IndexController extends Controller
         return $this->render('signup', ['model' => $form]);
     }
 
+    /**
+     * Verifies confirm token
+     * 
+     * @return string
+     */
     public function actionConfirm($token)
     {
         $service = new SignupService();
@@ -79,4 +152,5 @@ class IndexController extends Controller
     
         return $this->redirect('index');
     }
+
 }

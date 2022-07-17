@@ -10,7 +10,16 @@ use Exception;
 class SignupService
 {
 
-    public function signup(SignupForm $form)
+
+    /**
+     * Add new user to DB
+     * 
+     * @param SignupForm $form
+     * 
+     * @return Users
+     * @throws Exception
+     */
+    public function signup($form)
     {
         $user = new Users();
         
@@ -21,13 +30,20 @@ class SignupService
         $user->status = Users::STATUS_WAIT;
 
         if (!$user->save()) {
-            throw new Exception("Saving exception.");
+            throw new \Exception("Saving exception.");
         }
         // $user->save(); уже сохраняет в if
 
         return $user;        
     }
 
+    /**
+     * Sent confirm token to user's mail
+     * 
+     * @param Users $user
+     * 
+     * @throws Exception
+     */
     public function sentEmailConfirm(Users $user)
     {
         $email = $user->email;
@@ -46,21 +62,28 @@ class SignupService
         }
     }
 
+    /**
+     * Validates the token
+     * 
+     * @param SignupForm $form
+     *
+     * @throws Exception
+     */
     public function confirmation($token): void
     {
         if (empty($token)) {
-            throw new \DomainException('Empty confirm token.');
+            throw new \Exception('Empty confirm token.');
         }
 
         $user = Users::findOne(['email_confirm_token' => $token]);
         if (!$user) {
-            throw new \DomainException('User is not found.');
+            throw new \Exception('User is not found.');
         }
 
         $user->email_confirm_token = null;
         $user->status = Users::STATUS_ACTIVE;
         if (!$user->save()) {
-            throw new \RuntimeException('Saving error.');
+            throw new \Exception('Saving error.');
         }
 
         // if (!Yii::$app->getUser()->login($user)){

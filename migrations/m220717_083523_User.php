@@ -3,19 +3,24 @@
 use yii\db\Migration;
 
 /**
- * Class m220716_185016_Users
+ * Class m220717_083523_User
  */
-class m220716_185016_Users extends Migration
+class m220717_083523_User extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('Users', [
+        $this->createTable('User', [
             'id' => $this->primaryKey(),
-            'name' => $this->string()->notNull(),
+            'username' => $this->string()->notNull(),
             'password' => $this->string()->notNull(),
+            'email' => $this->string()->notNull(),
+            'confirm_token' => $this->string(),
+            'status' => $this->integer(),
+            'access_token' => $this->string()->notNull(),
+            'auth_key' => $this->string()->notNull(),
         ]);
     }
 
@@ -26,7 +31,7 @@ class m220716_185016_Users extends Migration
     {
         echo "Table Users deleted.\n";
 
-        $this->dropTable('Users');
+        $this->dropTable('User');
     }
 
     /*
