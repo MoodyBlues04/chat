@@ -67,7 +67,7 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->goHome();
     }
 
     /**
@@ -82,8 +82,15 @@ class IndexController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->render('index');
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                if($model->login()){
+                    return $this->goHome();
+                }
+            } catch (\Exception $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+                return $this->goHome();
+            }
         }
 
         $model->password = '';
@@ -120,13 +127,14 @@ class IndexController extends Controller
                 $user = $service->signup($form);
                 Yii::$app->session->setFlash('success', 'Check your email to confirm the registration.');
                 $service->sentEmailConfirm($user);
-                return $this->redirect('index'); 
+
+                return $this->goHome(); 
             } catch (\Exception $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
             
-            return $this->redirect('index');
+            return $this->goHome();
         }
 
         $this->layout = 'login';
@@ -150,7 +158,11 @@ class IndexController extends Controller
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
     
-        return $this->redirect('index');
+        return $this->goHome();
+    }
+
+    public function goHome() {
+        return $this->render('index');
     }
 
 }

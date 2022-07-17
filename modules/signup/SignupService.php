@@ -3,7 +3,7 @@
 namespace app\modules\signup;
 
 use Yii;
-use app\models\Users;
+use app\models\User;
 use app\models\SignupForm;
 use Exception;
 
@@ -16,18 +16,18 @@ class SignupService
      * 
      * @param SignupForm $form
      * 
-     * @return Users
+     * @return User
      * @throws Exception
      */
     public function signup($form)
     {
-        $user = new Users();
+        $user = new User();
         
         $user->name = $form->name;
         $user->password = $form->password;
         $user->email = $form->email;
         $user->email_token = Yii::$app->security->generateRandomString();
-        $user->status = Users::STATUS_WAIT;
+        $user->status = User::STATUS_WAIT;
 
         if (!$user->save()) {
             throw new \Exception("Saving exception.");
@@ -40,11 +40,11 @@ class SignupService
     /**
      * Sent confirm token to user's mail
      * 
-     * @param Users $user
+     * @param User $user
      * 
      * @throws Exception
      */
-    public function sentEmailConfirm(Users $user)
+    public function sentEmailConfirm($user)
     {
         $email = $user->email;
 
@@ -75,19 +75,19 @@ class SignupService
             throw new \Exception('Empty confirm token.');
         }
 
-        $user = Users::findOne(['email_confirm_token' => $token]);
+        $user = User::findOne(['confirm_token' => $token]);
         if (!$user) {
             throw new \Exception('User is not found.');
         }
 
         $user->email_confirm_token = null;
-        $user->status = Users::STATUS_ACTIVE;
+        $user->status = User::STATUS_ACTIVE;
         if (!$user->save()) {
             throw new \Exception('Saving error.');
         }
 
-        // if (!Yii::$app->getUser()->login($user)){
-        //     throw new \RuntimeException('Error authentication.');
-        // }
+        if (!Yii::$app->getUser()->login($user)){
+            throw new \Exception('Error authentication.');
+        }
     }
 }

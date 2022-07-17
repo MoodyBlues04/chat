@@ -6,16 +6,16 @@ use yii\base\Model;
 
 class SignupForm extends Model
 {
-    public $name;
+    public $username;
     public $password;
     public $email;
 
     public function rules() {
         return [
-            [['name', 'password'], 'required', 'message' => 'please fill in all fields'],
+            [['username', 'password'], 'required', 'message' => 'please fill in all fields'],
             [ ['password'], 'string', 'min' => 8],
-            [['name', 'password'], 'safe'],
-            [['name'], 'unique'],
+            [['username', 'password'], 'safe'],
+            [['username'], 'unique'],
             [['email'], 'email'],
         ];
     }
