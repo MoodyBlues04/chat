@@ -34,6 +34,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         ];
     }
 
+    public static function getTableName() {
+        return "{{user}}";
+    }
+
     /**
      * Finds user by id
      * 
