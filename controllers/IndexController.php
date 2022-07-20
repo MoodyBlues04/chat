@@ -120,7 +120,7 @@ class IndexController extends Controller
     {        
         $form = new SignupForm();
 
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+        if ($form->load(Yii::$app->request->post())) {
             $service = new SignupService();
 
             try {
@@ -128,13 +128,17 @@ class IndexController extends Controller
                 Yii::$app->session->setFlash('success', 'Check your email to confirm the registration.');
                 $service->sentEmailConfirm($user);
 
-                return $this->goHome(); 
+                echo "registered, check email";exit();
+                // return $this->goHome(); 
             } catch (\Exception $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
+                
+                echo $e->getMessage();exit();
             }
             
-            return $this->goHome();
+            echo "how";exit();
+            // return $this->goHome();
         }
 
         $this->layout = 'login';

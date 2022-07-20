@@ -14,7 +14,7 @@ AppAsset::register($this);
 <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'username', ['enableLabel' => false])->textInput(['placeholder' => 'Name', 'class'=>'form-control text-center']) ?>
     <?= $form->field($model, 'password', ['enableLabel' => false])->passwordInput(['placeholder' => 'Password', 'class'=>'form-control text-center']) ?>
-    <?= $form->field($model, 'email', ['enableLabel' => false])->passwordInput(['placeholder' => 'Email', 'class'=>'form-control text-center']) ?>
+    <?= $form->field($model, 'email', ['enableLabel' => false])->textInput(['placeholder' => 'Email', 'class'=>'form-control text-center']) ?>
     <?= Html::submitButton('Sign Up', ['class' => 'login-button btn btn-primary']) ?>
 <?php ActiveForm::end(); ?>
 </div>

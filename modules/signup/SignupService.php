@@ -23,16 +23,25 @@ class SignupService
     {
         $user = new User();
         
-        $user->name = $form->name;
+        $user->username = $form->username;
         $user->password = $form->password;
         $user->email = $form->email;
-        $user->email_token = Yii::$app->security->generateRandomString();
+        $user->confirm_token = Yii::$app->security->generateRandomString();
+        
         $user->status = User::STATUS_WAIT;
+        $user->save();
 
-        if (!$user->save()) {
-            throw new \Exception("Saving exception.");
-        }
-        // $user->save(); уже сохраняет в if
+        // if (!$user->save()) {
+        //     throw new \Exception("Saving exception.");
+        // }
+        // $user->save(); уже сохраняет в if\
+
+        echo "<pre>" . PHP_EOL .
+                $user->username . PHP_EOL .
+                $user->password . PHP_EOL .
+                $user->email . PHP_EOL .
+                $user->confirm_token . PHP_EOL .
+            "</pre>";
 
         return $user;        
     }
@@ -50,7 +59,7 @@ class SignupService
 
         $sent = Yii::$app->mailer
             ->compose(
-                ['html' => 'signup-comfirm'],
+                ['html' => 'signup-confirm'],
                 ['user' => $user])
             ->setTo($email)
             ->setFrom('sokant2005@mail.ru')
@@ -80,7 +89,7 @@ class SignupService
             throw new \Exception('User is not found.');
         }
 
-        $user->email_confirm_token = null;
+        $user->confirm_token = null;
         $user->status = User::STATUS_ACTIVE;
         if (!$user->save()) {
             throw new \Exception('Saving error.');
