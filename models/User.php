@@ -27,7 +27,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return [
             [['username', 'password'], 'required', 'message' => 'please fill in all fields'],
             [ ['password'], 'string', 'min' => 8],
-            [['username', 'password'], 'safe'],
             [['username', 'email'], 'unique'],
             ['status', 'in', 'range' => [self::STATUS_DELETED, self::STATUS_WAIT, self::STATUS_ACTIVE]],
             [['email'], 'email'],

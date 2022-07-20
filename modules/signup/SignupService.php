@@ -27,21 +27,24 @@ class SignupService
         $user->password = $form->password;
         $user->email = $form->email;
         $user->confirm_token = Yii::$app->security->generateRandomString();
+
+        $user->access_token = Yii::$app->security->generateRandomString();
+        $user->auth_key = Yii::$app->security->generateRandomString();
         
         $user->status = User::STATUS_WAIT;
-        $user->save();
-
-        // if (!$user->save()) {
-        //     throw new \Exception("Saving exception.");
-        // }
-        // $user->save(); уже сохраняет в if\
-
-        echo "<pre>" . PHP_EOL .
-                $user->username . PHP_EOL .
-                $user->password . PHP_EOL .
-                $user->email . PHP_EOL .
-                $user->confirm_token . PHP_EOL .
-            "</pre>";
+        
+        // echo "<pre>" . PHP_EOL .
+        //         $user->username . PHP_EOL .
+        //         $user->password . PHP_EOL .
+        //         $user->email . PHP_EOL .
+        //         $user->confirm_token . PHP_EOL .
+        //         $user->access_token . PHP_EOL .
+        //         $user->auth_key . PHP_EOL .
+        //     "</pre>";
+        
+        if (!$user->save()) {
+            throw new \Exception("Saving exception.");
+        }
 
         return $user;        
     }

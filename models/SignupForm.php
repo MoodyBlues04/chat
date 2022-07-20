@@ -14,8 +14,7 @@ class SignupForm extends Model
         return [
             [['username', 'password'], 'required', 'message' => 'please fill in all fields'],
             [ ['password'], 'string', 'min' => 8],
-            [['username', 'password'], 'safe'],
-            [['username'], 'unique'],
+            [['username', 'password', 'email'], 'safe'],
             [['email'], 'email'],
         ];
     }
