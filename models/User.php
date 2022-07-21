@@ -18,14 +18,15 @@ namespace app\models;
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    const STATUS_DELETED = 2;
     const STATUS_WAIT = 0;
     const STATUS_ACTIVE = 1;
+    const STATUS_DELETED = 2;
+    
 
     public function rules()
     {
         return [
-            [['username', 'password'], 'required', 'message' => 'please fill in all fields'],
+            [['username', 'password', 'email'], 'required'],
             [ ['password'], 'string', 'min' => 8],
             [['username', 'email'], 'unique'],
             ['status', 'in', 'range' => [self::STATUS_DELETED, self::STATUS_WAIT, self::STATUS_ACTIVE]],
@@ -71,6 +72,18 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username]);
+    }
+
+    /**
+     * Finds user by email
+     *
+     * @param string $email
+     * 
+     * @return User
+     */
+    public static function findByEmail($email)
+    {
+        return static::findOne(['email' => $email]);
     }
 
     /**
