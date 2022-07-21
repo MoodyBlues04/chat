@@ -19,7 +19,7 @@ class LoginForm extends Model
             [['username', 'password'], 'safe'],
             [['username'], 'unique'],
             [['rememberMe'], 'boolean'],
-            ['password', 'validatePassword'],
+            [['password'], 'validatePassword'],
         ];
     }
 

@@ -82,6 +82,7 @@ class IndexController extends Controller
         }
 
         $model = new LoginForm();
+        
         if ($model->load(Yii::$app->request->post())) {
             try {
                 if($model->login()){
@@ -94,8 +95,10 @@ class IndexController extends Controller
         }
 
         $model->password = '';
+
+        $this->layout = 'login';
         return $this->render('login', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 
@@ -142,7 +145,9 @@ class IndexController extends Controller
         }
 
         $this->layout = 'login';
-        return $this->render('signup', ['model' => $form]);
+        return $this->render('signup', [
+            'model' => $form
+        ]);
     }
 
     /**

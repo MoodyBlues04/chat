@@ -18,7 +18,7 @@ namespace app\models;
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    const STATUS_DELETED = -1;
+    const STATUS_DELETED = 2;
     const STATUS_WAIT = 0;
     const STATUS_ACTIVE = 1;
 
