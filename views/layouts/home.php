@@ -3,6 +3,7 @@
 /** @var yii\web\View $this */
 /** @var string $content */
 
+// use Yii;
 use app\assets\AppAsset;
 use app\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
@@ -65,7 +66,7 @@ AppAsset::register($this);
                     <a class="dropdown-item" href="#">Настройки</a>
                     <a class="dropdown-item" href="#">Выйти</a>
                 </div>
-                username and icon
+                username and icon yii::$app
             </div>
             </div>
         </header>
