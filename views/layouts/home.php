@@ -61,16 +61,31 @@ AppAsset::register($this);
                     <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown"
                             aria-expanded="false">
                     </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Профиль</a>
-                        <a class="dropdown-item" href="#">Настройки</a>
-                        <a class="dropdown-item" href="#">Выйти</a>
-                    </div>
+
+                    <?php if (!Yii::$app->user->isGuest): ?>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="./profile">Профиль</a>
+                            <a class="dropdown-item" href="./settings">Настройки</a>
+                            <a class="dropdown-item" href="./log-out">Выйти</a>
+                        </div>
+                    <?php else: ?>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="./login">Log In</a>
+                            <a class="dropdown-item" href="./signup">Sign Up</a>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
                 <div class="username">
-                    <?= Yii::$app->user->identity->username ?>
+                <?php
+                    if (isset(Yii::$app->user->identity->username)) {
+                        echo Yii::$app->user->identity->username;
+                    } else {
+                        echo "Guest";
+                    }
+                ?>
                 </div>
+
                 <img
 					class="user-icon"
 					src="https://i.ibb.co/5hWYL0C/5.jpg"
@@ -82,7 +97,7 @@ AppAsset::register($this);
         </header>
         <main>
             <div class="links">
-                <a href="" class="link">main</a>
+                <a href="./index" class="link">main</a>
                 <a href="#1" class="link">feature 1</a>
                 <a href="#2" class="link">feature 2</a>
                 <a href="#3" class="link">feature 3</a>

@@ -87,7 +87,7 @@ class IndexController extends Controller
             try {
                 if($model->login()){
                     return $this->goHome();
-                }
+                } 
             } catch (\Exception $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
                 return $this->goHome();
@@ -107,10 +107,13 @@ class IndexController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
+    public function actionLogOut()
     {
-        Yii::$app->user->logout();
-
+        try {
+            Yii::$app->user->logout();
+        } catch (\Exception $e) {
+            echo $e;
+        }
         return $this->goHome();
     }
 
@@ -170,12 +173,27 @@ class IndexController extends Controller
         return $this->goHome();
     }
 
+    public function actionProfile() {
+
+        return $this->render('profile');
+    }
+
+    public function actionSettings() {
+
+        return $this->render('settings');
+    }
+
     public function goHome() {
         return $this->render('index');
     }
 
     public function actionTest() {
         echo Yii::$app->user->Identity->username;
+        try {
+            Yii::$app->user->logout();
+        } catch (\Exception $e) {
+            echo $e;
+        }
     }
 
 }

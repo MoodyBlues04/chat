@@ -1,4 +1,4 @@
-<p>hi<p>
+<p>main page<p>
     
 <!-- display success message -->
 <?php if (Yii::$app->session->hasFlash('success')): ?>
@@ -13,7 +13,7 @@
 <?php if (Yii::$app->session->hasFlash('error')): ?>
     <div class="alert alert-danger alert-dismissable">
          <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-         <h4><i class="icon fa fa-check"></i>Saved!</h4>
+         <h4><i class="icon fa fa-check"></i>Error</h4>
          <?= Yii::$app->session->getFlash('error') ?>
     </div>
 <?php endif; ?>

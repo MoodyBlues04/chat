@@ -18,7 +18,7 @@ class LoginForm extends Model
             [['username', 'password'], 'required', 'message' => 'please fill in all fields'],
             [['username', 'password'], 'safe'],
             [['rememberMe'], 'boolean'],
-            [['password'], 'validatePassword'],
+            [['password'], 'validatePassword', 'message' => 'Incorrect username or password.'],
         ];
     }
 
