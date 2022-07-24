@@ -26,6 +26,36 @@ header {
 .user {
     display: flex;
     margin-right: 40px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+
+    background-color: grey;
+}
+
+.dropdown {
+    display: flex;
+    margin-right: 20px;
+
+    background-color: aqua;
+}
+
+.username {
+    display: flex;
+    margin-right: 20px;
+
+    background-color: blueviolet;
+}
+
+.user-icon {
+    display: flex;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	margin: 0px;
+	padding: 0px;
+
+    background-color: brown;
 }
 
 main {

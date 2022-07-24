@@ -58,15 +58,25 @@ AppAsset::register($this);
             <div class="user"> 
                 
                 <div class="dropdown">
-                <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-expanded="false">
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Профиль</a>
-                    <a class="dropdown-item" href="#">Настройки</a>
-                    <a class="dropdown-item" href="#">Выйти</a>
+                    <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown"
+                            aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Профиль</a>
+                        <a class="dropdown-item" href="#">Настройки</a>
+                        <a class="dropdown-item" href="#">Выйти</a>
+                    </div>
                 </div>
-                username and icon yii::$app
+
+                <div class="username">
+                    <?= Yii::$app->user->identity->username ?>
+                </div>
+                <img
+					class="user-icon"
+					src="https://i.ibb.co/5hWYL0C/5.jpg"
+					alt=""
+					border="0"
+				>
             </div>
             </div>
         </header>

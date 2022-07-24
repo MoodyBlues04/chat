@@ -174,4 +174,8 @@ class IndexController extends Controller
         return $this->render('index');
     }
 
+    public function actionTest() {
+        echo Yii::$app->user->Identity->username;
+    }
+
 }
