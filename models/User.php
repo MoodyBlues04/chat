@@ -9,12 +9,12 @@ use \yii\web\IdentityInterface;
  * Class User
  * @package app\models
  *
- * @property int $id;
- * @property string $username;
- * @property string $password;
- * @property string $email;
- * @property string $confirm_token;
- * @property int $status;
+ * @property int $id
+ * @property string $username
+ * @property string $password
+ * @property string $email
+ * @property string $confirm_token
+ * @property int $status
  * 
  * @property string $auth_key
  * @property string $access_token
@@ -29,7 +29,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'password', 'email'], 'required'],
+            [['username', 'password', 'email', 'auth_key', 'access_token'], 'required'],
             [ ['password'], 'string', 'min' => 8],
             [['username', 'email'], 'unique'],
             ['status', 'in', 'range' => [self::STATUS_DELETED, self::STATUS_WAIT, self::STATUS_ACTIVE]],
@@ -39,6 +39,11 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function getTableName() {
         return "{{user}}";
+    }
+
+    public function getUserData()
+    {
+        return $this->hasOne(UserData::class, ['auth_key' => 'auth_key']);
     }
 
     /**

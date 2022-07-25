@@ -8,12 +8,13 @@
             border="0"
         >
         
-        <button
-            type="button"
-            class="profile-redact btn btn-outline-primary"
-            href="./redact"
-        >
-        Редактировать</button>
+        <a href="./edit">
+            <button
+                type="button"
+                class="profile-redact btn btn-outline-primary"
+            >
+            Редактировать</button>
+        </a>
         
     </div>
     <div class="profile-right">

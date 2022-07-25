@@ -58,8 +58,12 @@ AppAsset::register($this);
             <div class="user"> 
                 
                 <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown"
-                            aria-expanded="false">
+                    <button
+                        class="btn btn-link dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-expanded="false"
+                    >
                     </button>
 
                     <?php if (!Yii::$app->user->isGuest): ?>

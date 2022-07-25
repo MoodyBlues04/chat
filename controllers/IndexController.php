@@ -11,7 +11,7 @@ use yii\filters\AccessControl;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-
+use app\models\UserData;
 
 class IndexController extends Controller
 {
@@ -183,15 +183,20 @@ class IndexController extends Controller
         return $this->render('settings');
     }
 
-    public function actionRedact() {
+    public function actionEdit() {
 
         $username = Yii::$app->user->identity->username;
         $user = User::findByUsername($username);
-        $model = null;
+        $model = $user->userData;
+        if (null === $model) {
+            $model = new UserData();
+            $model->auth_key = $user->auth_key;
+        }
 
-        // табличку UserData, связь через auth_key
-
-        return $this->render('redact', [
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('./profile');
+        }
+        return $this->render('edit', [
             'model' => $model
         ]);
     }

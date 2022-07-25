@@ -20,7 +20,7 @@ class m220717_083523_User extends Migration
             'confirm_token' => $this->string(),
             'status' => $this->integer(),
             'access_token' => $this->string()->notNull(),
-            'auth_key' => $this->string()->notNull(),
+            'auth_key' => $this->string()->notNull()
         ]);
     }
 
@@ -29,7 +29,7 @@ class m220717_083523_User extends Migration
      */
     public function safeDown()
     {
-        echo "Table Users deleted.\n";
+        echo "Table User deleted.\n";
 
         $this->dropTable('User');
     }
