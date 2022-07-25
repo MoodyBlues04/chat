@@ -104,12 +104,19 @@ AppAsset::register($this);
                 <a href="#4" class="link">feature 4</a>
                 <a href="#5" class="link">feature 5</a>
                 <a href="#6" class="link">feature 6</a>
+                <a href="#7" class="link">feature 7</a>
+                <a href="#8" class="link">feature 8</a>
+                <a href="#9" class="link">feature 9</a>
+                <a href="#10" class="link">feature 10</a>
             </div>
             <div class="content">
                 <?= Alert::widget() ?>
                 <?= $content ?>
             </div>
         </main>
+        <footer>
+            some footer text
+        </footer>
     <?php $this->endBody() ?>
     </body>
 </html>

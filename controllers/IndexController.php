@@ -183,7 +183,21 @@ class IndexController extends Controller
         return $this->render('settings');
     }
 
+    public function actionRedact() {
+
+        $username = Yii::$app->user->identity->username;
+        $user = User::findByUsername($username);
+        $model = null;
+
+        // табличку UserData, связь через auth_key
+
+        return $this->render('redact', [
+            'model' => $model
+        ]);
+    }
+
     public function goHome() {
+
         return $this->render('index');
     }
 
