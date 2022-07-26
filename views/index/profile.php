@@ -19,7 +19,7 @@ use yii\bootstrap4\Html;
                     class="change-icon btn btn-outline-primary"
                     
                 >
-                    Chage icon
+                    Change icon
                 </button>
             </a>
         </div>
