@@ -144,21 +144,56 @@ main {
     background-color: aquamarine;
 }
 
+.profile-picture {
+    display: flex;
+    width: 200px;
+    height: 200px;
+    flex-direction: column;
+    align-items: center;
+    margin-top:20px;
+
+    position: relative;
+
+    background-color:rgb(109, 224, 105);
+}
+
 .profile-icon {
     display: flex;
 	width: 200px;
 	height: 200px;
 	border-radius: 50%;
-	margin-top: 20px;
 	padding: 0px;
 
     background-color: brown;
 }
 
-.profile-redact {
+.change-icon {
+    display:none;
+    position: absolute;
+    top: 50%;
+    right: 25%;
+}
+
+.profile-picture:hover .change-icon{
+    display:block;
+}
+
+.left-content {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+
+    background-color:rgb(91, 238, 243);
+}
+
+.profile-edit {
     display: flex;
     margin-top: 10px;
+}
 
+.button-link:hover {
+    text-decoration: none;
 }
 
 .profile-right {
@@ -166,5 +201,5 @@ main {
     width: 72%;
     flex-direction: column;
 
-    background-color: rgb(14, 85, 61);
+    background-color: rgb(111, 67, 151);
 }

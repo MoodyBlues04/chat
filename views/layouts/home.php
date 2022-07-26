@@ -3,8 +3,8 @@
 /** @var yii\web\View $this */
 /** @var string $content */
 
-// use Yii;
 use app\assets\AppAsset;
+use app\models\UserData;
 use app\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
@@ -92,11 +92,10 @@ AppAsset::register($this);
 
                 <img
 					class="user-icon"
-					src="https://i.ibb.co/5hWYL0C/5.jpg"
+					src= <?= Html::encode(UserData::getImgPath()) ?>
 					alt=""
 					border="0"
 				>
-            </div>
             </div>
         </header>
         <main>

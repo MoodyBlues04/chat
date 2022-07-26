@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 
 /**
@@ -14,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property string $surname
  * @property string $gender
  * @property string $introduction
+ * @property string $image
  */
 class UserData extends ActiveRecord
 {
@@ -31,11 +33,33 @@ class UserData extends ActiveRecord
     }
 
     public static function getTableName() {
-        return "{{user}}";
+        return "{{user_data}}";
     }
 
     public function getUser()
     {
         return $this->hasOne(User::class, ['auth_key' => 'auth_key']);
+    }
+
+    public static function getImgPath()
+    {
+        $path = __DIR__ . '/../uploads/';
+
+        if (Yii::$app->user->isGuest) {
+            return $path . 'guest.png';
+        }
+
+        $data = Yii::$app->user->identity->userData;
+        if (!is_dir($path)) {
+            mkdir($path);
+        }
+
+        if (null !== $data->image) {
+            $path .= $data->image;
+        } else {
+            $path .= 'default.png';
+        }
+
+        return $path;
     }
 }

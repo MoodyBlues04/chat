@@ -1,26 +1,45 @@
+<?php
 
+use app\models\UserData;
+use yii\bootstrap4\Html;
+
+?>
 <div class="profile-main">
     <div class="profile-left">
-        <img
-            class="profile-icon"
-            src="https://i.ibb.co/5hWYL0C/5.jpg"
-            alt=""
-            border="0"
-        >
-        
-        <a href="./edit">
-            <button
-                type="button"
-                class="profile-redact btn btn-outline-primary"
+        <div class="profile-picture">
+            <img
+                class="profile-icon"
+                src= <?= Html::encode(UserData::getImgPath())  ?>
+                alt=""
+                border="0"
             >
-            Редактировать</button>
-        </a>
-        
+            <a href="./upload-img" class="button-link">
+                <button 
+                    type="button"
+                    class="change-icon btn btn-outline-primary"
+                    
+                >
+                    Chage icon
+                </button>
+            </a>
+        </div>
+
+        <div class="left-content">
+            <a href="./edit" class="button-link">
+                <button
+                    type="button"
+                    class="profile-edit btn btn-outline-primary"
+                >
+                    Редактировать
+                </button>
+            </a>
+        </div>
     </div>
+
     <div class="profile-right">
-        <h2>Name & Surname</h2>
-        <p>some introduction</p>
-        <div>some inf maybe</div>
+        <h2><?= Html::encode($model->name) . ' ' . Html::encode($model->surname)?></h2>
+        <p><?= Html::encode($model->introduction) ?></p>
+        <div>some another information maybe (not users')</div>
     </div>
 </div>
 

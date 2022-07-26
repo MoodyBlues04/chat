@@ -11,7 +11,9 @@ use yii\filters\AccessControl;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\UploadImgForm;
 use app\models\UserData;
+use yii\web\UploadedFile;
 
 class IndexController extends Controller
 {
@@ -174,8 +176,15 @@ class IndexController extends Controller
     }
 
     public function actionProfile() {
+        $username = Yii::$app->user->identity->username;
+        $user = User::findByUsername($username);
+        $model = $user->userData;// переделать в функцию (модели наверно)
 
-        return $this->render('profile');
+        $path = UserData::getImgPath();
+        return $this->render('profile', [
+            'model' => $model,
+            'path' => $path, 
+        ]);
     }
 
     public function actionSettings() {
@@ -197,7 +206,29 @@ class IndexController extends Controller
             return $this->redirect('./profile');
         }
         return $this->render('edit', [
-            'model' => $model
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUploadImg()
+    {
+        $username = Yii::$app->user->identity->username;
+        $user = User::findByUsername($username);
+        $model = $user->userData;
+
+        $form = new UploadImgForm();
+        if (Yii::$app->request->isPost) {
+            $form->imageFile = UploadedFile::getInstance($form, 'imageFile');
+            if ($form->upload()) {
+                $model->image = $form->imageFile->baseName . '.' . $form->imageFile->extension;
+                $model->save();
+                return $this->redirect('./profile');
+            }
+        }
+
+        $this->layout = 'login';
+        return $this->render('upload-img', [
+            'model' => $form,
         ]);
     }
 
