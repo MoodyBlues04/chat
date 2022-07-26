@@ -36,30 +36,33 @@ class UserData extends ActiveRecord
         return "{{user_data}}";
     }
 
+    /**
+     * Finds User by UserData
+     * 
+     * @return User
+     */
     public function getUser()
     {
         return $this->hasOne(User::class, ['auth_key' => 'auth_key']);
     }
 
+    /**
+     * Returns link to user's icon
+     * 
+     * @return string
+     */
     public static function getImgPath()
     {
-        $path = __DIR__ . '/../uploads/';
-
+        $defaultPath = "https://i.ibb.co/rZ3DXMk/default-png.png";
         if (Yii::$app->user->isGuest) {
-            return $path . 'guest.png';
+            return $defaultPath;
         }
 
-        $data = Yii::$app->user->identity->userData;
-        if (!is_dir($path)) {
-            mkdir($path);
+        $path = Yii::$app->user->identity->userData->image;
+        if (null !== $path) {
+            return $path;
         }
 
-        if (null !== $data->image) {
-            $path .= $data->image;
-        } else {
-            $path .= 'default.png';
-        }
-
-        return $path;
+        return $defaultPath;
     }
 }

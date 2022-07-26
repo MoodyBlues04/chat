@@ -2,14 +2,13 @@
 
 namespace app\models;
 
+use app\objects\imgbbApi;
 use yii\base\Model;
 use yii\web\UploadedFile;
 
 class UploadImgForm extends Model
 {
-    /**
-     * @var UploadedFile
-     */
+    /** @var UploadedFile */
     public $imageFile;
 
     // public function rules()
@@ -19,13 +18,29 @@ class UploadImgForm extends Model
     //     ];
     // }
     
+    /**
+     * Uploads file by api and add link to DB
+     * 
+     * @return string|null 
+     */
     public function upload()
     {
         if ($this->validate()) {
-            $this->imageFile->saveAs(__DIR__ . '/../uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
-            return true;
+            $path = __DIR__ . '/../uploads/';
+            if (!is_dir($path)) {
+                mkdir($path);
+            }
+            $path .= $this->imageFile->baseName . '.' . $this->imageFile->extension;
+            $this->imageFile->saveAs($path);
+
+            $this->imageFile->tempName = $path;
+            $return = imgbbApi::uploadImg($this->imageFile);
+
+            unlink($path);
+
+            return $return['data']['url'];
         } else {
-            return false;
+            return null;
         }
     }
 }

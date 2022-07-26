@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\UploadImgForm;
 use app\models\UserData;
+use Exception;
 use yii\web\UploadedFile;
 
 class IndexController extends Controller
@@ -175,10 +176,15 @@ class IndexController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * Renders profile page
+     * 
+     * @return string
+     */
     public function actionProfile() {
-        $username = Yii::$app->user->identity->username;
-        $user = User::findByUsername($username);
-        $model = $user->userData;// переделать в функцию (модели наверно)
+        $this->isGuest();
+
+        $model = User::getData();
 
         $path = UserData::getImgPath();
         return $this->render('profile', [
@@ -187,12 +193,24 @@ class IndexController extends Controller
         ]);
     }
 
+    /**
+     * Shows user's settings
+     * 
+     * @return strring
+     */
     public function actionSettings() {
+        $this->isGuest();
 
         return $this->render('settings');
     }
 
+    /**
+     * Changes user's data
+     * 
+     * @return string
+     */
     public function actionEdit() {
+        $this->isGuest();
 
         $username = Yii::$app->user->identity->username;
         $user = User::findByUsername($username);
@@ -210,20 +228,28 @@ class IndexController extends Controller
         ]);
     }
 
+    /**
+     * Changes user's icon
+     * 
+     * @return string
+     */
     public function actionUploadImg()
     {
-        $username = Yii::$app->user->identity->username;
-        $user = User::findByUsername($username);
-        $model = $user->userData;
+        $this->isGuest();
+
+        $model = User::getData();
 
         $form = new UploadImgForm();
         if (Yii::$app->request->isPost) {
             $form->imageFile = UploadedFile::getInstance($form, 'imageFile');
-            if ($form->upload()) {
-                $model->image = $form->imageFile->baseName . '.' . $form->imageFile->extension;
+            $link = $form->upload();
+            if (null !== $link) {
+                $model->image = $link;
                 $model->save();
                 return $this->redirect('./profile');
             }
+            
+            throw new Exception('upload error');
         }
 
         $this->layout = 'login';
@@ -232,12 +258,36 @@ class IndexController extends Controller
         ]);
     }
 
+    /**
+     * Renders home page
+     * 
+     * @return string
+     */
     public function goHome() {
 
         return $this->render('index');
     }
 
+    /**
+     * Checks is user guest
+     * 
+     * @return string
+     */
+    public function isGuest() {
+        if (Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('error', 'Log In to do that.');
+            return $this->goHome();
+        }
+    }
+
+    /**
+     * Test action
+     * 
+     * @return string
+     */
     public function actionTest() {
+        $this->isGuest();
+
         echo Yii::$app->user->Identity->username;
         try {
             Yii::$app->user->logout();

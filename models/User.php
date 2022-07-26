@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 use \yii\web\IdentityInterface;
 
@@ -41,9 +42,28 @@ class User extends ActiveRecord implements IdentityInterface
         return "{{user}}";
     }
 
+    /**
+     * Finds UserData
+     * 
+     * @return UserData
+     */
     public function getUserData()
     {
         return $this->hasOne(UserData::class, ['auth_key' => 'auth_key']);
+    }
+
+    /**
+     * Finds UserData by session data.
+     * 
+     * @return UserData
+     */
+    public static function getData() {
+        if (Yii::$app->user->isGuest) {
+            return null;
+        }
+        $username = Yii::$app->user->identity->username;
+        $user = self::findByUsername($username);
+        return $user->userData;
     }
 
     /**
