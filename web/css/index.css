@@ -171,7 +171,7 @@ main {
     display:none;
     position: absolute;
     top: 50%;
-    right: 25%;
+    right: 22%;
 }
 
 .profile-picture:hover .change-icon{
@@ -200,6 +200,10 @@ main {
 .profile-edit {
     display: flex;
     margin-top: 10px;
+}
+
+.edit-form-container {
+    width: 50%
 }
 
 .button-link:hover {

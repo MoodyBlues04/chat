@@ -70,7 +70,7 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
-        return $this->goHome();
+        return $this->render('index');
     }
 
     /**
@@ -182,7 +182,10 @@ class IndexController extends Controller
      * @return string
      */
     public function actionProfile() {
-        $this->isGuest();
+        $flag = $this->isGuest();
+        if (null !== $flag) {
+            return $flag;
+        }
 
         $model = User::getData();
 
@@ -199,7 +202,11 @@ class IndexController extends Controller
      * @return strring
      */
     public function actionSettings() {
-        $this->isGuest();
+        $flag = $this->isGuest();
+        if (null !== $flag) {
+            return $flag;
+        }
+
 
         return $this->render('settings');
     }
@@ -210,7 +217,11 @@ class IndexController extends Controller
      * @return string
      */
     public function actionEdit() {
-        $this->isGuest();
+        $flag = $this->isGuest();
+        if (null !== $flag) {
+            return $flag;
+        }
+
 
         $username = Yii::$app->user->identity->username;
         $user = User::findByUsername($username);
@@ -235,7 +246,11 @@ class IndexController extends Controller
      */
     public function actionUploadImg()
     {
-        $this->isGuest();
+        $flag = $this->isGuest();
+        if (null !== $flag) {
+            return $flag;
+        }
+
 
         $model = User::getData();
 
@@ -265,7 +280,7 @@ class IndexController extends Controller
      */
     public function goHome() {
 
-        return $this->render('index');
+        return $this->redirect(['index/index']);
     }
 
     /**
@@ -278,6 +293,7 @@ class IndexController extends Controller
             Yii::$app->session->setFlash('error', 'Log In to do that.');
             return $this->goHome();
         }
+        return null;
     }
 
     /**
@@ -286,7 +302,11 @@ class IndexController extends Controller
      * @return string
      */
     public function actionTest() {
-        $this->isGuest();
+        $flag = $this->isGuest();
+        if (null !== $flag) {
+            return $flag;
+        }
+
 
         echo Yii::$app->user->Identity->username;
         try {
