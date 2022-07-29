@@ -32,6 +32,11 @@ class UserData extends ActiveRecord
         ];
     }
 
+    public static function primaryKey()
+    {
+        return 'id';
+    }
+
     public static function getTableName() {
         return "{{user_data}}";
     }

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Logger;
 use Yii;
 use yii\web\Controller;
 use app\models\User;
@@ -93,6 +94,7 @@ class IndexController extends Controller
                 } 
             } catch (\Exception $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
+                (new Logger())->log('log in error', $e->getMessage());
                 return $this->goHome();
             }
         }
@@ -115,7 +117,8 @@ class IndexController extends Controller
         try {
             Yii::$app->user->logout();
         } catch (\Exception $e) {
-            echo $e;
+            Yii::$app->session->setFlash('error', $e->getMessage());
+            (new Logger())->log('log out error', $e->getMessage(), Yii::$app->user->identity->id);
         }
         return $this->goHome();
     }
@@ -142,8 +145,7 @@ class IndexController extends Controller
             } catch (\Exception $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
-                
-                // echo $e->getMessage();exit();
+                (new Logger())->log('sign up error', $e->getMessage());
             }
             
             // echo "how";exit();
@@ -171,6 +173,7 @@ class IndexController extends Controller
         } catch (\Exception $e){
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());
+            (new Logger())->log('confirm error', $e->getMessage());
         }
     
         return $this->goHome();
@@ -243,6 +246,7 @@ class IndexController extends Controller
      * Changes user's icon
      * 
      * @return string
+     * @throws \Exception
      */
     public function actionUploadImg()
     {

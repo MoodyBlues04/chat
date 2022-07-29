@@ -38,6 +38,11 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public static function primaryKey()
+    {
+        return 'id';
+    }
+
     public static function getTableName() {
         return "{{user}}";
     }
