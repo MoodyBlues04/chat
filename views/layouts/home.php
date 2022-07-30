@@ -101,7 +101,7 @@ AppAsset::register($this);
         <main>
             <div class="links">
                 <a href="./index" class="link">main</a>
-                <a href="chat/chat" class="link">chat</a>
+                <a href="/../chat/chat" class="link">chat</a>
                 <a href="#2" class="link">feature 2</a>
                 <a href="#3" class="link">feature 3</a>
                 <a href="#4" class="link">feature 4</a>
