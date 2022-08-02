@@ -3,6 +3,10 @@
 use app\models\UserData;
 use yii\bootstrap4\Html;
 
+/**
+ * @var app\models\UserData $model
+ */
+
 ?>
 <div class="profile-main">
     <div class="profile-left">

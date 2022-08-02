@@ -5,6 +5,10 @@ use yii\bootstrap4\ActiveForm;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+/**
+ * @var app\models\UserData $model
+ */
 ?>
 
 <div class="edit-form-container">

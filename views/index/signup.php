@@ -6,6 +6,10 @@ use app\assets\AppAsset;
 
 $this->title = 'Sign Up';
 AppAsset::register($this);
+
+/**
+ * @var app\models\SignupForm $form
+ */
 ?>
 
 <div class="login-form">

@@ -1,5 +1,9 @@
 <?php
 use yii\widgets\ActiveForm;
+
+/**
+ * @var app\models\UploadImgForm $model
+ */
 ?>
 <div class="img-form-container">
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
