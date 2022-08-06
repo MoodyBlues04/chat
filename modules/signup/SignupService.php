@@ -95,9 +95,10 @@ class SignupService
 
         $user->confirm_token = null;
         $user->status = User::STATUS_ACTIVE;
-        if (!$user->save()) {
-            throw new \Exception('Saving error.');
-        }
+        $user->save();
+        // if (!$user->save()) {
+        //     throw new \Exception('Saving error.');
+        // }
 
         if (!Yii::$app->getUser()->login($user)){
             throw new \Exception('Error authentication.');

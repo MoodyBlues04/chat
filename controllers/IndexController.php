@@ -94,7 +94,7 @@ class IndexController extends Controller
                 } 
             } catch (\Exception $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
-                (new Logger())->log('log in error', $e->getMessage());
+                (new Logger())->log('log in error', $e->getMessage(), __FILE__);
                 return $this->goHome();
             }
         }
@@ -118,7 +118,7 @@ class IndexController extends Controller
             Yii::$app->user->logout();
         } catch (\Exception $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
-            (new Logger())->log('log out error', $e->getMessage(), Yii::$app->user->identity->id);
+            (new Logger())->log('log out error', $e->getMessage(), __FILE__, Yii::$app->user->identity->id);
         }
         return $this->goHome();
     }
@@ -145,7 +145,7 @@ class IndexController extends Controller
             } catch (\Exception $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
-                (new Logger())->log('sign up error', $e->getMessage());
+                (new Logger())->log('sign up error', $e->getMessage(), __FILE__);
             }
             
             // echo "how";exit();
@@ -167,14 +167,14 @@ class IndexController extends Controller
     {
         $service = new SignupService();
     
-        try{
+        // try{
             $service->confirmation($token);
             Yii::$app->session->setFlash('success', 'You have successfully confirmed your registration.');
-        } catch (\Exception $e){
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('error', $e->getMessage());
-            (new Logger())->log('confirm error', $e->getMessage());
-        }
+        // } catch (\Exception $e){
+        //     Yii::$app->errorHandler->logException($e);
+        //     Yii::$app->session->setFlash('error', $e->getMessage());
+        //     (new Logger())->log('confirm error', $e->getMessage(), __FILE__);
+        // }
     
         return $this->goHome();
     }
