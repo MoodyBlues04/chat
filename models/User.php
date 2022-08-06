@@ -16,7 +16,6 @@ use \yii\web\IdentityInterface;
  * @property string $email
  * @property string $confirm_token
  * @property int $status
- * 
  * @property string $auth_key
  * @property string $access_token
  */

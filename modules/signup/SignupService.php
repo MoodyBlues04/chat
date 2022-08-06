@@ -5,6 +5,7 @@ namespace app\modules\signup;
 use Yii;
 use app\models\User;
 use app\models\SignupForm;
+use app\models\UserData;
 use Exception;
 
 class SignupService
@@ -100,6 +101,16 @@ class SignupService
 
         if (!Yii::$app->getUser()->login($user)){
             throw new \Exception('Error authentication.');
+        }
+
+        $auth_key = $user->getAuthKey();
+        if (!empty(UserData::findOne(['auth_key' => $auth_key]))) {
+            throw new \Exception("user's data already exist");
+        }
+        $userData = new UserData();
+        $userData->auth_key = $auth_key;
+        if (!$userData->save()) {
+            throw new \Exception('user data saving error');
         }
     }
 }

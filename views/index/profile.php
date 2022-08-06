@@ -21,7 +21,6 @@ use yii\bootstrap4\Html;
                 <button 
                     type="button"
                     class="change-icon btn btn-outline-primary"
-                    
                 >
                     Change icon
                 </button>
@@ -41,8 +40,18 @@ use yii\bootstrap4\Html;
     </div>
 
     <div class="profile-right">
-        <h2><?= Html::encode($model->name) . ' ' . Html::encode($model->surname)?></h2>
-        <p><?= Html::encode($model->introduction) ?></p>
+        <?php if (!empty($model->name) && !empty($model->surname)): ?>
+            <h2><?= Html::encode($model->name) . ' ' . Html::encode($model->surname)?></h2>
+        <?php else: ?>
+            <h2>Enter your name and surname</h2>
+        <?php endif; ?>
+        
+        <?php if (!empty($model->introduction)): ?>
+            <p><?= Html::encode($model->introduction) ?></p>
+        <?php else: ?>
+            <h2>Enter some introduction here</h2>
+        <?php endif; ?>
+        
         <div>some another information maybe (not users')</div>
     </div>
 </div>

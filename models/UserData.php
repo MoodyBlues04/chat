@@ -63,11 +63,10 @@ class UserData extends ActiveRecord
             return $defaultPath;
         }
 
-        $path = Yii::$app->user->identity->userData->image;
-        if (null !== $path) {
-            return $path;
+        if (empty(Yii::$app->user->identity->userData->image)) {
+            return $defaultPath;
         }
 
-        return $defaultPath;
+        return Yii::$app->user->identity->userData->image;
     }
 }

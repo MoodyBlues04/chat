@@ -1,1 +1,1 @@
-There is your settings
+There are your settings
