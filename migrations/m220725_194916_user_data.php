@@ -17,7 +17,7 @@ class m220725_194916_user_data extends Migration
             'auth_key' => $this->string()->notNull(),
             'name' => $this->string(),
             'surname' => $this->string(),
-            'gender' => $this->int(),
+            'gender' => $this->integer(),
             'introduction' => $this->text()
         ]);
     }
