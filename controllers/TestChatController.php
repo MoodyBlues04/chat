@@ -5,9 +5,9 @@ namespace app\controllers;
 use yii\base\Controller;
 use Pusher\Pusher;
 
-class ChatController extends Controller
+class TestChatController extends Controller
 {
-/**
+    /**
      * Renders chat page
      * 
      * @return string
@@ -15,16 +15,16 @@ class ChatController extends Controller
     public function actionChat()
     {
         $options = [
-            'cluster' => 'ap2',
+            'cluster' => 'eu',
             'encrypted' => true
         ];
          
         $pusher = new Pusher(
-            '42894xxxx1bfbaxxxx65',
-            '60cfxxxxfa4031bxxxxe',
-            '45xxx07',
+            'ea2916c64230438cf47f',
+            '46fe5b224d108dbdca73',
+            '1443896',
             $options
-        );
+          );
         // Check the receive message
          
         if(isset($_POST['message']) && !empty($_POST['message'])) {
@@ -39,6 +39,6 @@ class ChatController extends Controller
         
         }
         
-        return $this->renderPartial('chat');
+        return $this->renderPartial('test-chat');
     }
 }

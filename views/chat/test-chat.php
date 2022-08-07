@@ -13,7 +13,6 @@
 .messages_display {height: 300px; overflow: auto;}		
 .messages_display .message_item {padding: 0; margin: 0; }		
 .bg-danger {padding: 10px;}	
-
 </style>		
 </head>
 <body>
@@ -44,13 +43,13 @@
     Pusher.logToConsole = true;
 
 // Add API Key & cluster here to make the connection 
-var pusher = new Pusher('42894ae311bfba3b7465', {
-    cluster: 'ap2',
+var pusher = new Pusher('3Cvk8KIKOCPKP9Wz_j08btJAdW1jFZwvhm-nw58lnTs', {
+    cluster: 'eu',
     encrypted: true
 });
 
 // Enter a unique channel you wish your users to be subscribed in.
-var channel = pusher.subscribe('test_channel');
+var channel = pusher.subscribe('giga.chat-service');
 
 // bind the server event to get the response data and append it to the message div
 channel.bind('my_event',
