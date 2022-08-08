@@ -2,20 +2,18 @@
 
 namespace app\controllers;
 
-use app\models\Logger;
-use Yii;
 use yii\web\Controller;
 use app\models\User;
+use app\models\UserData;
+use app\models\Logger;
 use app\models\SignupForm;
-use app\modules\signup\SignupService;
-use yii\filters\AccessControl;
-use yii\web\Response;
-use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\UploadImgForm;
-use app\models\UserData;
-use Exception;
+use app\modules\signup\SignupService;
+use yii\web\Response;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 class IndexController extends Controller
 {
@@ -81,19 +79,19 @@ class IndexController extends Controller
      */
     public function actionLogin()
     {
-        // if (!Yii::$app->user->isGuest) {
+        // if (!\Yii::$app->user->isGuest) {
         //     return $this->goHome();
         // }
 
         $model = new LoginForm();
         
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(\Yii::$app->request->post())) {
             try {
                 if($model->login()){
                     return $this->goHome();
                 } 
             } catch (\Exception $e) {
-                Yii::$app->session->setFlash('error', $e->getMessage());
+                \Yii::$app->session->setFlash('error', $e->getMessage());
                 (new Logger())->log('log in error', $e->getMessage(), __FILE__);
                 return $this->goHome();
             }
@@ -115,10 +113,10 @@ class IndexController extends Controller
     public function actionLogOut()
     {
         try {
-            Yii::$app->user->logout();
+            \Yii::$app->user->logout();
         } catch (\Exception $e) {
-            Yii::$app->session->setFlash('error', $e->getMessage());
-            (new Logger())->log('log out error', $e->getMessage(), __FILE__, Yii::$app->user->identity->id);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            (new Logger())->log('log out error', $e->getMessage(), __FILE__, \Yii::$app->user->identity->id);
         }
         return $this->goHome();
     }
@@ -132,19 +130,19 @@ class IndexController extends Controller
     {        
         $form = new SignupForm();
 
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             $service = new SignupService();
 
             try {
                 $user = $service->signup($form);
-                Yii::$app->session->setFlash('success', 'Check your email to confirm the registration.');
+                \Yii::$app->session->setFlash('success', 'Check your email to confirm the registration.');
                 $service->sentEmailConfirm($user);
 
                 // echo "registered, check email";exit();
                 return $this->goHome(); 
             } catch (\Exception $e) {
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
                 (new Logger())->log('sign up error', $e->getMessage(), __FILE__);
             }
             
@@ -169,10 +167,10 @@ class IndexController extends Controller
     
         // try{
             $service->confirmation($token);
-            Yii::$app->session->setFlash('success', 'You have successfully confirmed your registration.');
+            \Yii::$app->session->setFlash('success', 'You have successfully confirmed your registration.');
         // } catch (\Exception $e){
-        //     Yii::$app->errorHandler->logException($e);
-        //     Yii::$app->session->setFlash('error', $e->getMessage());
+        //     \Yii::$app->errorHandler->logException($e);
+        //     \Yii::$app->session->setFlash('error', $e->getMessage());
         //     (new Logger())->log('confirm error', $e->getMessage(), __FILE__);
         // }
     
@@ -226,7 +224,7 @@ class IndexController extends Controller
         }
 
 
-        $username = Yii::$app->user->identity->username;
+        $username = \Yii::$app->user->identity->username;
         $user = User::findByUsername($username);
         $model = $user->userData;
         if (null === $model) {
@@ -234,7 +232,7 @@ class IndexController extends Controller
             $model->auth_key = $user->auth_key;
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(\Yii::$app->request->post()) && $model->save()) {
             return $this->redirect('./profile');
         }
         return $this->render('edit', [
@@ -259,7 +257,7 @@ class IndexController extends Controller
         $model = User::getData();
 
         $form = new UploadImgForm();
-        if (Yii::$app->request->isPost) {
+        if (\Yii::$app->request->isPost) {
             $form->imageFile = UploadedFile::getInstance($form, 'imageFile');
             $link = $form->upload();
             if (null !== $link) {
@@ -268,7 +266,7 @@ class IndexController extends Controller
                 return $this->redirect('./profile');
             }
             
-            throw new Exception('upload error');
+            throw new \Exception('upload error');
         }
 
         $this->layout = 'login';
@@ -293,8 +291,8 @@ class IndexController extends Controller
      * @return string
      */
     public function isGuest() {
-        if (Yii::$app->user->isGuest) {
-            Yii::$app->session->setFlash('error', 'Log In to do that.');
+        if (\Yii::$app->user->isGuest) {
+            \Yii::$app->session->setFlash('error', 'Log In to do that.');
             return $this->goHome();
         }
         return null;
@@ -312,9 +310,9 @@ class IndexController extends Controller
         }
 
 
-        echo Yii::$app->user->Identity->username;
+        echo \Yii::$app->user->Identity->username;
         try {
-            Yii::$app->user->logout();
+            \Yii::$app->user->logout();
         } catch (\Exception $e) {
             echo $e;
         }
