@@ -31,7 +31,7 @@ class TestChatController extends Controller
             $data = $_POST['message'];
             
             // Return the received message
-            if($pusher->trigger('test_channel', 'my_event', $data)) {
+            if($pusher->trigger('giga.chat-service', 'send', $data)) {
                 echo 'success';
             } else {
                 echo 'error';
